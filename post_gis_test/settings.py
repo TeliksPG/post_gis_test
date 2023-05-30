@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = True
@@ -82,11 +82,10 @@ WSGI_APPLICATION = "post_gis_test.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "postgres1",
-        "USER": "postgres",
-        "PASSWORD": "1qazcde3",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
     }
 }
 
@@ -164,8 +163,8 @@ SPECTACULAR_SETTINGS = {
     },
 }
 
-GDAL_LIBRARY_PATH = "C:/OSGeo4W/bin/gdal307.dll"
-
-GEOS_LIBRARY_PATH = "C:/OSGeo4W/bin/geos_c.dll"
-
-os.environ["PROJ_LIB"] = "C:/OSGeo4W/share/proj"
+# GDAL_LIBRARY_PATH = "C:/OSGeo4W/bin/gdal307.dll"
+#
+# GEOS_LIBRARY_PATH = "C:/OSGeo4W/bin/geos_c.dll"
+#
+# os.environ["PROJ_LIB"] = "C:/OSGeo4W/share/proj"

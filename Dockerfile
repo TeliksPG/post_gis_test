@@ -1,4 +1,4 @@
-FROM python:3.11.3
+FROM python:3.10.8-slim
 LABEL mainteiner="hapyto371@gmail.com"
 
 ENV PYTHONBUFFERED 1

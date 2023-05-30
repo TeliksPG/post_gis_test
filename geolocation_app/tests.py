@@ -23,7 +23,7 @@ def sample_place(**params):
         ),
         "name": "Test",
         "description": "Test description",
-        "geom": f"POINT({nums} {nums})"
+        "geom": f"POINT({nums} {nums})",
     }
     defaults.update(params)
     return Place.objects.create(**defaults)
@@ -55,14 +55,14 @@ class AuthenticatedPlaceApiTests(TestCase):
 
         res = self.client.get(PLACE_URL)
 
-        places = Place.objects.all().order_by('-id')[:2]
+        places = Place.objects.all().order_by("-id")[:2]
         serializer = PlaceSerializer(places, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(res.data['results']), 2)
+        self.assertEqual(len(res.data["results"]), 2)
 
-        sorted_results = sorted(res.data['results'], key=lambda x: x['id'])
-        sorted_serialized = sorted(serializer.data, key=lambda x: x['id'])
+        sorted_results = sorted(res.data["results"], key=lambda x: x["id"])
+        sorted_serialized = sorted(serializer.data, key=lambda x: x["id"])
 
         self.assertEqual(sorted_results, sorted_serialized)
 
@@ -70,23 +70,22 @@ class AuthenticatedPlaceApiTests(TestCase):
         payload = {
             "name": "Test",
             "description": "Test description",
-            "geom": "POINT (1 1)"
+            "geom": "POINT (1 1)",
         }
 
         res = self.client.post(PLACE_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        place = Place.objects.get(id=res.data['id'])
+        place = Place.objects.get(id=res.data["id"])
         for key in payload.keys():
             if key == "geom":
                 expected = payload[key]
-                actual = str(getattr(place, key)).split(';')[1].strip()
+                actual = str(getattr(place, key)).split(";")[1].strip()
                 self.assertEqual(expected, actual)
             else:
                 self.assertEqual(payload[key], getattr(place, key))
 
     def test_place_filtered_by_name(self):
-
         place1 = sample_place(name="Test")
         place2 = sample_place(name="Test2")
         place3 = sample_place(name="Shop")
@@ -97,9 +96,9 @@ class AuthenticatedPlaceApiTests(TestCase):
         serializer2 = PlaceSerializer(place2)
         serializer3 = PlaceSerializer(place3)
 
-        self.assertIn(serializer1.data, res.data['results'])
-        self.assertIn(serializer2.data, res.data['results'])
-        self.assertNotIn(serializer3.data, res.data['results'])
+        self.assertIn(serializer1.data, res.data["results"])
+        self.assertIn(serializer2.data, res.data["results"])
+        self.assertNotIn(serializer3.data, res.data["results"])
 
     def test_place_detail(self):
         place = sample_place()
