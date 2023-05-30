@@ -13,7 +13,20 @@
 - PostgreSQL(with PostGIS extension)
 - Docker
 
-## ⚙️Installation:
+## 🐋Run with docker:
+
+```shell
+    git clone https://github.com/ProdyRodion/post_gis_test.git
+    cd post_gis_test
+    
+    change .env.sample to .env and set your own values
+    
+    For notifications in telegram you should join group https://t.me/GeoGisBot_test
+    
+    docker-compose up --build
+```
+
+## ⚙️Run locally
 ```shell
     git clone https://github.com/ProdyRodion/post_gis_test.git
     cd post_gis_test
@@ -24,6 +37,8 @@
     GEOS_LIBRARY_PATH = 'C:/OSGeo4W/bin/geos_c.dll'
     os.environ['PROJ_LIB'] = 'C:/OSGeo4W/share/proj'
     
+    For notifications in telegram you should join group https://t.me/GeoGisBot_test
+
     python -m venv venv
     source venv/bin/activate (Linux/MacOS)
     venv\Scripts\activate (on Windows)
@@ -31,11 +46,7 @@
 ```
 
 
-## 🐋Run with docker:
 
-```shell
-  docker-compose up --build
-```
 
 ## 🧪Test coverage:
 - Test for some custom logic
