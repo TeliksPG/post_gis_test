@@ -7,5 +7,9 @@ class Place(models.Model):
     description = models.TextField()
     geom = models.PointField(unique=True)
 
+    class Meta:
+        ordering = ["id"]
+
     def __str__(self):
         return self.name
+

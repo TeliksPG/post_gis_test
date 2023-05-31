@@ -3,22 +3,17 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+from pagination import PlaceListPagination
 from .models import Place
 from .serializers import PlaceSerializer
 from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.geos import fromstr
-from rest_framework.pagination import PageNumberPagination
-
-
-class PlacePagination(PageNumberPagination):
-    page_size = 5
-    max_page_size = 20
 
 
 class PlaceViewSet(viewsets.ModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
-    pagination_class = PlacePagination
+    pagination_class = PlaceListPagination
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     @staticmethod
@@ -87,10 +82,10 @@ class NearestPlaceView(generics.RetrieveAPIView):
         lat = self.request.query_params.get("lat", None)
         lon = self.request.query_params.get("lon", None)
         if lat is not None and lon is not None:
-            pnt = fromstr(f"POINT({lat} {lon})", srid=4326)
+            point = fromstr(f"POINT({lat} {lon})", srid=4326)
             return (
                 self.get_queryset()
-                .annotate(distance=Distance("geom", pnt))
+                .annotate(distance=Distance("geom", point))
                 .order_by("distance")
                 .first()
             )

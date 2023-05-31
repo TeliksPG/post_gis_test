@@ -48,7 +48,6 @@ class AuthenticatedPlaceApiTests(TestCase):
         self.client.force_authenticate(self.user)
 
     def test_list_places(self):
-        Place.objects.all().delete()
 
         sample_place()
         sample_place()
