@@ -33,9 +33,9 @@
     OSGeo4W -> should be already installed
     
     # You should set the path to the GDAL and GEOS libraries in settings.py
-    GDAL_LIBRARY_PATH = r'C:/OSGeo4W/bin/gdal307.dll'
-    GEOS_LIBRARY_PATH = 'C:/OSGeo4W/bin/geos_c.dll'
-    os.environ['PROJ_LIB'] = 'C:/OSGeo4W/share/proj'
+    GDAL_LIBRARY_PATH = "C:/OSGeo4W/bin/gdal307.dll"
+    GEOS_LIBRARY_PATH = "C:/OSGeo4W/bin/geos_c.dll"
+    os.environ["PROJ_LIB"] = "C:/OSGeo4W/share/proj"
     
     For notifications in telegram you should join group https://t.me/GeoGisBot_test
 
